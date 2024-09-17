@@ -67,7 +67,8 @@ I missed the bolded part of the Cuckoo docs, so I will reiterate here that when 
 
 # Wrapping up
 The last bit was creating startup/shutdown scripts. In the Autoinstall script that I referenced earlier, shell scripts are used to control Cuckoo. Since I have a newer Ubuntu machine, I created Systemd unit files for the Cuckoo engine, its API, and its web service. After those services are started, files can be submitted to the engine for analysis.
-![cuckoo](/content/images/2020/02/cuckoo.png)
+
+(note: image lost to the ether)
 
 There is still a lot of learning for me to do on this platform, but as the screenshot above shows, you can get quick wins even with this minimal install. Future things to tune and enable include:
 * Get Yara working
