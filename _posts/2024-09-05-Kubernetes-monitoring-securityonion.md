@@ -73,6 +73,7 @@ Next we need to configure Falco. Output the current config via `helm show values
 3. Enable JSON output
 4. Install and load the k8saudit plugin
 5. Create a custom rule that will output execve events. Only the modifications are shown.
+
 ```yaml
 collectors:
   containerd:
@@ -108,8 +109,10 @@ customRules:
       priority: Debug
       tags: [system_call, execve, elasticsearch]
 ```
+
 I also needed to update microk8s auditing.
 Create file `/var/snap/microk8s/current/args/audit-policy.yaml`:
+
 ```yaml
 apiVersion: audit.k8s.io/v1
 kind: Policy
@@ -133,7 +136,8 @@ Create a new agent policy to collect the Kubernetes logs. This policy contains t
 
 ## Falco processor
 Create an ingest pipeline processor (`falco`) for Falco logs. When the Elastic Agent started collecting these logs via the above policy, it automatically created a pipeline `logs-falco-2.3.0` so attach the processor to that pipeline. This uses 2 Painless scripts to parse the Falco output into ECS objects. If the log comes from the syscall rule, one script runs and if it doesn't a different script runs. This handles the different fields that are in each output.
-```
+
+```json
 [
   {
     "json": {
@@ -181,7 +185,8 @@ Create an ingest pipeline processor (`falco`) for Falco logs. When the Elastic A
 ]
 ```
 Then apply this to future logs via:
-```
+
+```javascript
 PUT /_index_template/logs-falco
 {
   "index_patterns": ["logs-falco-*"],
@@ -194,8 +199,10 @@ PUT /_index_template/logs-falco
   }
 }
 ```
+
 If you've already had an index created from the template, for example because the agent has already sent logs, then also apply this pipeline to the current index, adjust 2024.09.13-000001 to match your index:
-```
+
+```javascript
 PUT /.ds-logs-falco-default-2024.09.13-000001/_settings
 {
   "index": {
@@ -205,7 +212,8 @@ PUT /.ds-logs-falco-default-2024.09.13-000001/_settings
 ```
 ## Zeek logs
 Security Onion already processes Zeek logs (usually from `/nsm/zeek`) so I hook my k8s-zeek-logs policy into that pipeline. Copy/paste the processors from the zeek-logs policy that is part of the so-grid-nodes-general policy and paste it into the new one, changing the tokenizer path and adding a few Javascript lines to enrich with the pod name. When click-opsing through the policy GUI, it failed to apply the ingest policy since it was managed already. I clicked Preview API Request, added the `"force": true` option, and sent it via the Console.
-```
+
+```javascript
 POST kbn:/api/fleet/package_policies
 {
   "policy_id": "0eaf17e0-6e36-11ef-a8bf-2f21315ac90d",
@@ -243,7 +251,8 @@ POST kbn:/api/fleet/package_policies
 ```
 ## k8s audit
 For k8s audit logs, we get a nice JSON field and can set values directly. Like the Falco logs, we can create another ingest pipeline and attach it to the default logs-k8s-2.3.0 that gets created.
-```
+
+```json
 [
   {
     "json": {
