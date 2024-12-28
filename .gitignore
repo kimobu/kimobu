@@ -27,3 +27,4 @@ _sass/dist
 assets/js/dist
 .obsidian
 .DS_Store
+.vscode
