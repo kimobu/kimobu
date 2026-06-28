@@ -1,0 +1,199 @@
+:root {
+  --theme: #fbfaf7;
+  --entry: #ffffff;
+  --primary: #1f2933;
+  --secondary: #5f6b76;
+  --tertiary: #e8edf2;
+  --content: #26323f;
+  --border: #dde3ea;
+  --code-block-bg: #f6f8fa;
+  --code-bg: #eef1f4;
+  --code-fg: #1f2328;
+  --code-muted: #6e7781;
+  --code-border: #d8dee4;
+  --link: #1f5f8b;
+}
+
+:root[data-theme="dark"] {
+  --theme: #171a1f;
+  --entry: #20242b;
+  --primary: #d8dee9;
+  --secondary: #9aa6b2;
+  --tertiary: #2b313a;
+  --content: #c7d0dc;
+  --border: #343a44;
+  --code-block-bg: #242936;
+  --code-bg: #20242b;
+  --code-fg: #d8dee9;
+  --code-muted: #9aa6b2;
+  --code-border: #343a44;
+  --link: #8ab6d6;
+}
+
+body {
+  font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+code,
+kbd,
+pre,
+samp,
+.chroma {
+  font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.md-content a:not(.anchor),
+.post-meta a,
+.footer a,
+.post-content a,
+.breadcrumbs a {
+  color: var(--link);
+}
+
+@media (min-width: 1120px) {
+  body:has(.post-with-sidebar) .main {
+    max-width: calc(var(--main-width) + 300px + var(--gap) * 3);
+  }
+
+  .post-with-sidebar > .post-header,
+  .post-with-sidebar > .entry-cover {
+    max-width: var(--main-width);
+  }
+
+  .post-body-grid {
+    display: grid;
+    grid-template-columns: minmax(0, var(--main-width)) 260px;
+    gap: calc(var(--gap) * 2);
+    align-items: start;
+  }
+
+  .post-main-column {
+    grid-column: 1;
+  }
+
+  .toc-sidebar {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--header-height) + var(--gap));
+    max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
+    overflow: auto;
+  }
+
+  .toc-sidebar details.toc {
+    margin-bottom: 0;
+  }
+
+  .toc-sidebar details.toc summary {
+    padding: 0.45rem 0.9rem;
+  }
+
+  .toc-sidebar details .inner {
+    margin: 0 1rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .toc-sidebar .inner ul {
+    padding-inline-start: 1rem;
+  }
+
+  .toc-sidebar .inner a {
+    color: var(--secondary);
+    font-size: 14px;
+    line-height: 1.35;
+  }
+}
+
+.md-content .highlight:not(table),
+.md-content pre code,
+.chroma,
+.bg {
+  color: var(--code-fg);
+  background: var(--code-block-bg) !important;
+}
+
+.md-content .highlight:not(table) {
+  border: 1px solid var(--code-border);
+}
+
+.post-content code {
+  color: var(--code-fg);
+}
+
+.chroma .lnt,
+.chroma .ln,
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: var(--code-muted);
+}
+
+:root:not([data-theme="dark"]) .chroma .k,
+:root:not([data-theme="dark"]) .chroma .kc,
+:root:not([data-theme="dark"]) .chroma .kd,
+:root:not([data-theme="dark"]) .chroma .kn,
+:root:not([data-theme="dark"]) .chroma .kp,
+:root:not([data-theme="dark"]) .chroma .kr,
+:root:not([data-theme="dark"]) .chroma .kt {
+  color: #cf222e;
+}
+
+:root:not([data-theme="dark"]) .chroma .na,
+:root:not([data-theme="dark"]) .chroma .nb,
+:root:not([data-theme="dark"]) .chroma .bp,
+:root:not([data-theme="dark"]) .chroma .nc,
+:root:not([data-theme="dark"]) .chroma .no,
+:root:not([data-theme="dark"]) .chroma .nd,
+:root:not([data-theme="dark"]) .chroma .ne,
+:root:not([data-theme="dark"]) .chroma .nf,
+:root:not([data-theme="dark"]) .chroma .fm,
+:root:not([data-theme="dark"]) .chroma .nl,
+:root:not([data-theme="dark"]) .chroma .nn,
+:root:not([data-theme="dark"]) .chroma .py,
+:root:not([data-theme="dark"]) .chroma .nt {
+  color: #6639ba;
+}
+
+:root:not([data-theme="dark"]) .chroma .s,
+:root:not([data-theme="dark"]) .chroma .sa,
+:root:not([data-theme="dark"]) .chroma .sb,
+:root:not([data-theme="dark"]) .chroma .sc,
+:root:not([data-theme="dark"]) .chroma .dl,
+:root:not([data-theme="dark"]) .chroma .s2,
+:root:not([data-theme="dark"]) .chroma .se,
+:root:not([data-theme="dark"]) .chroma .si,
+:root:not([data-theme="dark"]) .chroma .sx,
+:root:not([data-theme="dark"]) .chroma .sr,
+:root:not([data-theme="dark"]) .chroma .s1,
+:root:not([data-theme="dark"]) .chroma .ss {
+  color: #0a7b45;
+}
+
+:root:not([data-theme="dark"]) .chroma .m,
+:root:not([data-theme="dark"]) .chroma .mb,
+:root:not([data-theme="dark"]) .chroma .mf,
+:root:not([data-theme="dark"]) .chroma .mh,
+:root:not([data-theme="dark"]) .chroma .mi,
+:root:not([data-theme="dark"]) .chroma .il,
+:root:not([data-theme="dark"]) .chroma .mo {
+  color: #953800;
+}
+
+:root:not([data-theme="dark"]) .chroma .o,
+:root:not([data-theme="dark"]) .chroma .ow {
+  color: #0550ae;
+}
+
+:root:not([data-theme="dark"]) .chroma .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+
+:root:not([data-theme="dark"]) .chroma .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}

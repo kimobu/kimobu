@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 
-if [ -f package.json ]; then
-  bash -i -c "nvm install --lts && nvm install-latest-npm"
-  npm i
-  npm run build
-fi
+set -euo pipefail
 
-# Install dependencies for shfmt extension
-curl -sS https://webi.sh/shfmt | sh &>/dev/null
+HUGO_VERSION="${HUGO_VERSION:-0.163.3}"
+tmpdir="$(mktemp -d)"
 
-# Add OMZ plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-sed -i -E "s/^(plugins=\()(git)(\))/\1\2 zsh-syntax-highlighting zsh-autosuggestions\3/" ~/.zshrc
+curl -sfL -o "$tmpdir/hugo.tar.gz" \
+  "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+tar -C "$tmpdir" -xf "$tmpdir/hugo.tar.gz"
+sudo install "$tmpdir/hugo" /usr/local/bin/hugo
 
-# Avoid git log use less
-echo -e "\nunset LESS" >>~/.zshrc
+hugo version

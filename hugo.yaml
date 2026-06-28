@@ -1,0 +1,85 @@
+baseURL: "https://www.kimobu.space/"
+locale: en-us
+title: kimobu
+theme: PaperMod
+copyright: "Copyright Kimo B"
+
+enableRobotsTXT: true
+enableEmoji: true
+pygmentsUseClasses: true
+
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+pagination:
+  pagerSize: 10
+
+taxonomies:
+  category: categories
+  tag: tags
+
+permalinks:
+  posts: /posts/:slug/
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+menu:
+  main:
+    - name: Archives
+      url: /archives/
+      weight: 10
+    - name: Categories
+      url: /categories/
+      weight: 20
+    - name: Tags
+      url: /tags/
+      weight: 30
+    - name: Search
+      url: /search/
+      weight: 40
+    - name: About
+      url: /about/
+      weight: 50
+
+params:
+  env: production
+  description: A personal website to document and share my learning.
+  author: Kimo B
+  defaultTheme: dark
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+  mainSections:
+    - posts
+
+  homeInfoParams:
+    Title: kimobu
+    Content: Docendo discimus
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/kimobu"
+    - name: email
+      url: "mailto:kimo@kimobu.space"
+    - name: mastodon
+      url: "https://infosec.exchange/@kimobu"
+    - name: rss
+      url: "https://www.kimobu.space/index.xml"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
